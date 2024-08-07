@@ -6,23 +6,28 @@ const Searchpage = () => {
   const searchResult = location.state?.searchResult;
 
   return (
-    <div>
+    <div className="text-white font-poppins pt-16 p-8">
   {searchResult && (
     <div>
-      <h1>Search Result:</h1>
-      <ul>
-        {searchResult.map((movie, index) => (
-          <li key={index}>
-            <h2>{movie[2]}</h2>
-            <p>{movie[3]}</p>
-            <img
-                src={`https://image.tmdb.org/t/p/w500${movie[0]}`}
-                alt={`Image ${index}`}
-                className="px-2 hover:z-50"
-            />
-          </li>
+      <h1 className="text-3xl font-semibold">Search Result:</h1>
+      <div className="flex flex-wrap justify-start ">
+        {searchResult.map((imagePair, index) => (
+          <div key={index} className="w-1/4 px-2">
+            <div className="flex justify-center">
+                <h2 className="text-white md:w-72 text-center font-medium md:text-xl md:h-12 bg-[#000000a7] relative 
+                ">{imagePair[2]}</h2>
+            </div>
+            
+            <div className="flex justify-center">
+                <img
+                    src={`https://image.tmdb.org/t/p/w500${imagePair[0]}`}
+                    alt={`Image ${index}`}
+                    className=" md:w-72"
+                />
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   )}
 </div>

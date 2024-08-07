@@ -3,6 +3,7 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 import requests
+import datetime
 
 app = Flask(__name__)
 cors = CORS(app, origins=["http://localhost:3000"])
@@ -27,7 +28,9 @@ def searchmovie():
         img.append(i["backdrop_path"])
         img.append(i["title"])
         img.append(i["overview"])
-        result.append(img)
+        img.append(i["release_date"])
+        if int((i["release_date"])[:4])>2019 and int((i["release_date"])[:4])<=2024:
+            result.append(img)
     return jsonify(result), 200
 
 
