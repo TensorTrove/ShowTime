@@ -14,8 +14,15 @@ movie_path_genre=f"https://api.themoviedb.org/3/discover/movie"
 load_dotenv()
 api_key = os.getenv("MOVIE_API")
 
+@app.route("/searchOneMovie/<string:id>",methods=["POST"])
+def searchOneMovie(id):
+    url=f"https://api.themoviedb.org/3/movie/{id}?api_key={api_key}"
+    response=requests.get(url)
+    return jsonify(response.json()),200
+
+
 @app.route("/searchmovie",methods=["POST"])
-def searchmovie():
+def searchMovie():
     result=[]
     movie_name=request.get_json()
     movie_name=movie_name["movie"]
@@ -32,6 +39,7 @@ def searchmovie():
             img.append(i["release_date"])
         else:
             continue
+        img.append(str(i["id"]))
         if int((i["release_date"])[:4])>=2018 and int((i["release_date"])[:4])<=2024:
             result.append(img)
     return jsonify(result), 200

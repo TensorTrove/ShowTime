@@ -21,7 +21,7 @@ const SeatBooking = () => {
                     </div>
                     <div className=''>
                         <div className='border md:w-auto h-96 p-10 '>
-                            <h1 className='text-white z-50 text-3xl'>Movie : <span className='text-3xl font-bold'>{movie[2]}</span></h1>
+                            <h1 className='text-white z-50 text-3xl'>Movie : <span className='text-3xl font-bold pl-32'>{movie[2]}</span></h1>
                         </div>
                     </div>
                 </div>
