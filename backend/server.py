@@ -28,8 +28,11 @@ def searchmovie():
         img.append(i["backdrop_path"])
         img.append(i["title"])
         img.append(i["overview"])
-        img.append(i["release_date"])
-        if int((i["release_date"])[:4])>2019 and int((i["release_date"])[:4])<=2024:
+        if i["release_date"]!="":
+            img.append(i["release_date"])
+        else:
+            continue
+        if int((i["release_date"])[:4])>=2018 and int((i["release_date"])[:4])<=2024:
             result.append(img)
     return jsonify(result), 200
 

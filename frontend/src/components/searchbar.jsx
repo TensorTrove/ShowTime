@@ -37,7 +37,7 @@ const Searchbar = () => {
           />
           <button
             type='submit' 
-            className='relative top-1.5 p-3 text-white bg-black rounded-r-3xl'
+            className='relative top-1.5 p-3 text-white bg-[#272424] rounded-r-3xl border-spacing-0.5'
             onClick={handleSearchClick}
           >
             <FaSearch size={25} />
