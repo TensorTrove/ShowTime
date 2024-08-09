@@ -37,7 +37,7 @@ const SeatBooking = () => {
                     className="md:w-7/12 absolute md:-z-50 darken-blur"
                 />
             </div>
-        <h2 className='md:text-3xl md:font-semibold font-rubix md:mb-10 bg-black'>Ticket confirmation</h2>
+        <h2 className='md:text-4xl md:font-semibold font-rubix md:mb-10 bg-black'>Ticket confirmation</h2>
         <div className=''>
             
           {movie && (
