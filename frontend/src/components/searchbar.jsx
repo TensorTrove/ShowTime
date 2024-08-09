@@ -29,7 +29,7 @@ const Searchbar = () => {
       <div className='flex justify-between pt-4 mb-3 px-20'>
         <a href="/">
           <div className='w-20'>
-            <img src="https://i.pinimg.com/564x/bc/2a/05/bc2a05e398a55163568f0f9b8a66b27a.jpg" alt="Logo" />
+            <img src="https://i.pinimg.com/736x/a1/92/93/a1929317b8b7b6654ed8e48f141460ef.jpg" alt="Logo" />
           </div>
         </a>
         <div>
