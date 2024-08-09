@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,6 +11,7 @@ const Homepage = () => {
   const [trendingImages, settrendingImages] = useState([]);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -75,9 +77,9 @@ const Homepage = () => {
     nextArrow: null,
   };
 
-  const handleImageClick = (imagePair) => {
-    setSelectedImage(imagePair);
-  };
+  const handleImageClick = (movie) => {
+    navigate('/booking', { state: { movie } });
+};
 
   return (
     <div className="select-none">
@@ -108,6 +110,7 @@ const Homepage = () => {
           <Slider {...settings}>
             {popularImages.map((imagePair, index) => (
               <div key={index} className="relative">
+                <p className='text-white'>{imagePair[5]}</p>
                 <div
                   className="px-0 hover:transition-all hover:duration-300 duration-300 hover:scale-125 hover:z-50"
                   onClick={() => handleImageClick(imagePair)}
@@ -130,7 +133,7 @@ const Homepage = () => {
       <div className="flex justify-center relative md:pb-6">
         <div className="w-11/12">
           <div className="text-white font-poppins font-semibold text-2xl p-3">
-            <p className='font-rubix'>Trending this week</p>
+            <p className='font-rubix'>Trending this week </p>
           </div>
           <Slider {...settings}>
             {trendingImages.map((imagePair, index) => (

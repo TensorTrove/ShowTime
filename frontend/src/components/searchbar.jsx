@@ -31,7 +31,7 @@ const Searchbar = () => {
           <input
             type="text"
             placeholder='Search...'
-            className='border rounded-l-3xl md:h-11 md:w-60 md:focus:w-80 bg-white transition-all duration-300 pl-3'
+            className='border rounded-l-3xl md:h-11 md:w-60 md:focus:w-96 bg-white transition-all duration-300 pl-3'
             value={movieName}
             onChange={(e) => setMovieName(e.target.value)}
           />

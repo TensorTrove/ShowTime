@@ -10,11 +10,14 @@ body{
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
-  }
-  
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none; 
-  }
-  a:focus {
-    outline: none;
-  }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; 
+}
+a:focus {
+  outline: none;
+}
+.darken-blur {
+  filter: brightness(0.35) blur(5px);
+}
