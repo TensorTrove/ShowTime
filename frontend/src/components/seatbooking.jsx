@@ -28,7 +28,7 @@ const SeatBooking = () => {
   }, [movie]);
 
   return (
-    <div className='text-white p-32 pt-32'>
+    <div className='text-white p-32 pt-16'>
       <div className='overflow-hidden'>
             <div className='flex justify-center'>
                 <img

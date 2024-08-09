@@ -25,8 +25,13 @@ const Searchbar = () => {
   };
 
   return (
-    <div className='absolute right-3 z-50'>
-      <div className='flex justify-end pt-6'>
+    <div className='z-50'>
+      <div className='flex justify-between pt-4 mb-3 px-20'>
+        <a href="/">
+          <div className='w-20'>
+            <img src="https://i.pinimg.com/564x/bc/2a/05/bc2a05e398a55163568f0f9b8a66b27a.jpg" alt="Logo" />
+          </div>
+        </a>
         <div>
           <input
             type="text"
@@ -42,9 +47,6 @@ const Searchbar = () => {
           >
             <FaSearch size={25} />
           </button>
-        </div>
-        <div className='md:w-28'>
-
         </div>
       </div>
     </div>

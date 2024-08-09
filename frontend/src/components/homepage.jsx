@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import LogoHome from './logohome';
 
 const Homepage = () => {
   const [popularImages, setPopularImages] = useState([]);
@@ -83,7 +84,6 @@ const Homepage = () => {
 
   return (
     <div className="select-none">
-      
       {selectedImage && (
       <div className="flex justify-center relative md:pb-6">
         <div className="w-11/12">
@@ -110,7 +110,6 @@ const Homepage = () => {
           <Slider {...settings}>
             {popularImages.map((imagePair, index) => (
               <div key={index} className="relative">
-                <p className='text-white'>{imagePair[5]}</p>
                 <div
                   className="px-0 hover:transition-all hover:duration-300 duration-300 hover:scale-125 hover:z-50"
                   onClick={() => handleImageClick(imagePair)}
