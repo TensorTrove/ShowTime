@@ -72,10 +72,34 @@ const Homepage = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 9,
-    slidesToScroll: 2,
+    slidesToShow: 6,
+    slidesToScroll: 1,
     prevArrow: null,
     nextArrow: null,
+    autoplay: true,
+    autoplaySpeed: 4800,
+  };
+  var settings1 = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 9,
+    slidesToScroll: 1,
+    prevArrow: null,
+    nextArrow: null,
+    autoplay: true,
+    autoplaySpeed: 6000,
+  };
+  var settings2 = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: null,
+    nextArrow: null,
+    autoplay: true,
+    autoplaySpeed: 3500,
   };
 
   const handleImageClick = (movie) => {
@@ -84,21 +108,27 @@ const Homepage = () => {
 
   return (
     <div className="select-none">
-      {selectedImage && (
-      <div className="flex justify-center relative md:pb-6">
+      {popularImages.length > 0 && (
+      <div className="flex justify-center relative md:pb-6 cursor-pointer">
         <div className="w-11/12">
-        <div className='flex justify-end'>
-        <img
-            src={`https://image.tmdb.org/t/p/w500${selectedImage[1]}`}
-            alt="Selected Image"
-            className="px-2 w-8/12"
-            style={{ filter: "brightness(0.25) blur(4.9px)"}}
-          />
-        </div>
-          <div className="absolute top-14 left-0 right-0 bg-opacity-50 text-white z-20 p-10 px-32">
-            <p className="font-semibold font-rubix text-6xl pb-4">{selectedImage[2]}</p>
-            <p className='relative left-4 w-4/12 text-lg font-rubix tracking-wide scale-x-105'>{selectedImage[3]}</p>
-          </div>
+          <Slider {...settings2}>
+            {popularImages.map((image, index) => (
+              <div key={index} className="relative" onClick={() => handleImageClick(image)}>
+                <div className='flex justify-end'>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${image[1]}`}
+                    alt="Popular Image"
+                    className="px-2 w-7/12"
+                    style={{ filter: "brightness(0.25) blur(4.9px)" }}
+                  />
+                </div>
+                <div className="absolute top-14 left-0 right-0 bg-opacity-50 text-white z-20 p-4 px-8">
+                  <p className="font-semibold font-rubix text-6xl pb-4">{image[2]}</p>
+                  <p className='relative left-4 w-4/12 text-lg font-rubix tracking-wide scale-x-105'>{image[3]}</p>
+                </div>
+              </div>
+            ))}
+          </Slider>
         </div>
       </div>
     )}
@@ -134,7 +164,7 @@ const Homepage = () => {
           <div className="text-white font-poppins font-semibold text-2xl p-3">
             <p className='font-rubix'>Trending this week </p>
           </div>
-          <Slider {...settings}>
+          <Slider {...settings1}>
             {trendingImages.map((imagePair, index) => (
               <div key={index} className="relative">
                 <div

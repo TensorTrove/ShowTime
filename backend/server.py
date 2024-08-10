@@ -18,7 +18,28 @@ api_key = os.getenv("MOVIE_API")
 def searchOneMovie(id):
     url=f"https://api.themoviedb.org/3/movie/{id}?api_key={api_key}"
     response=requests.get(url)
-    return jsonify(response.json()),200
+    response=response.json()
+    result=[]
+    result.append(response["original_title"])
+    result.append(response["release_date"])
+    runtime=response["runtime"]
+    minutes = runtime
+    hours = minutes // 60
+    remaining_minutes = minutes % 60
+
+    time_string = f"{hours}h {remaining_minutes}m"
+    result.append(time_string)
+    genres=[]
+    for genre in response["genres"]:
+        genres.append(genre["name"])
+    if len(genres)>0:
+        result.append(genres)
+    result.append(str(round(response["vote_average"], 1)))
+    result.append(response["backdrop_path"])
+    if len(result)==6:
+        return result,200
+    else:
+        return {"message":"Could not fetch"},400
 
 
 @app.route("/searchmovie",methods=["POST"])
@@ -34,7 +55,7 @@ def searchMovie():
         img.append(i["poster_path"])
         img.append(i["backdrop_path"])
         img.append(i["title"])
-        img.append(i["overview"])
+        img.append(shorten_overview(i["overview"]))
         if i["release_date"]!="":
             img.append(i["release_date"])
         else:
@@ -56,7 +77,12 @@ def sliderpopular():
         img.append(i["poster_path"])
         img.append(i["backdrop_path"])
         img.append(i["title"])
-        img.append(i["overview"])
+        img.append(shorten_overview(i["overview"]))
+        if i["release_date"]!="":
+            img.append(i["release_date"])
+        else:
+            continue
+        img.append(str(i["id"]))
         result.append(img)
     return jsonify(result), 200
 
@@ -71,9 +97,27 @@ def slidertrending():
         img.append(i["poster_path"])
         img.append(i["backdrop_path"])
         img.append(i["title"])
-        img.append(i["overview"])
+        img.append(shorten_overview(i["overview"]))
+        if i["release_date"]!="":
+            img.append(i["release_date"])
+        else:
+            continue
+        img.append(str(i["id"]))
         result.append(img)
     return jsonify(result), 200
+
+def shorten_overview(overview:str):
+    overview=overview.replace("!",".")
+    overview=overview.replace("?",'.')
+    if len(overview) > 300:
+        truncated_overview = overview[:300]
+        last_fullstop_index = truncated_overview.rfind('.')
+        if last_fullstop_index != -1:
+            return truncated_overview[:last_fullstop_index + 1]
+        else:
+            return truncated_overview
+    else:
+        return overview
 
 @app.route("/sliderhorror", methods=["GET"])
 def sliderhorror():
@@ -86,7 +130,12 @@ def sliderhorror():
         img.append(i["poster_path"])
         img.append(i["backdrop_path"])
         img.append(i["title"])
-        img.append(i["overview"])
+        img.append(shorten_overview(i["overview"]))
+        if i["release_date"]!="":
+            img.append(i["release_date"])
+        else:
+            continue
+        img.append(str(i["id"]))
         result.append(img)
     return jsonify(result), 200
 
