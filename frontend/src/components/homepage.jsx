@@ -144,13 +144,13 @@ const Homepage = () => {
                   className="px-0 hover:transition-all hover:duration-300 duration-300 hover:scale-125 hover:z-50"
                   onClick={() => handleImageClick(imagePair)}
                 >
-                  <a href="">
+                  <div className='cursor-pointer'>
                     <img
                       src={`https://image.tmdb.org/t/p/w500${imagePair[0]}`}
                       alt={`Image ${index}`}
                       className="px-2 hover:z-50"
                     />
-                  </a>
+                  </div>
                 </div>
               </div>
             ))}
@@ -171,13 +171,13 @@ const Homepage = () => {
                   className="px-0 hover:transition-all hover:duration-300 duration-300 hover:scale-125 hover:z-50"
                   onClick={() => handleImageClick(imagePair)}
                 >
-                  <a href="" className=''>
+                  <div className='cursor-pointer'>
                     <img
                       src={`https://image.tmdb.org/t/p/w500${imagePair[0]}`}
                       alt={`Image ${index}`}
                       className="px-2 hover:z-50"
                     />
-                  </a>
+                  </div>
                 </div>
               </div>
             ))}

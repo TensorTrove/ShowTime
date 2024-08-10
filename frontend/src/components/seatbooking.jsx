@@ -29,7 +29,7 @@ const SeatBooking = () => {
 
   return (
     <div className='text-white p-32 pt-16'>
-      <div className='overflow-hidden'>
+      <div className='overflow-hidden z-50'>
             <div className='flex justify-center'>
                 <img
                     src={`https://image.tmdb.org/t/p/w500${MovieData[5]}`}

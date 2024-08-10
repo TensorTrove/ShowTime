@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "gsap": "^3.12.5",
     "slick-carousel": "^1.8.1",
     "yarn": "^1.22.22"
   }

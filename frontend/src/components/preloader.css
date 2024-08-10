@@ -1,0 +1,27 @@
+.preloader {
+    height: 100vh;
+    width: 100%;
+    background: #000000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffff;
+    overflow: hidden !important;
+
+    .texts-container {
+        display: flex;
+        align-items: center;
+        height: 180px;
+        width: 280px;
+        font-size: 20px;
+        overflow: hidden;
+        font-weight: 800;
+        opacity: 0;
+        color: #fff;
+    }
+}
