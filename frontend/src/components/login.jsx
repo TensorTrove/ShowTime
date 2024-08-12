@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image1 from '../images/image1.png';
+import Image2 from '../images/image2.jpg';
 import { RxEyeClosed, RxEyeOpen } from 'react-icons/rx';
 
 const Login = () => {
@@ -39,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className='image_back h-screen overflow-hidden px-20 pt-1'>
+    <div className='image_back h-screen overflow-hidden px-20 pt-1 back_img'>
       <div className='w-24'>
         <img src={Image1} alt="logo" />
       </div>
