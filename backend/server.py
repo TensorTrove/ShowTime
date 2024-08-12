@@ -4,14 +4,22 @@ import os
 from dotenv import load_dotenv
 import requests
 import datetime
+from pymongo import MongoClient
+
+
+load_dotenv()
+
+client=MongoClient(f'mongodb+srv://personalankitdey:{os.getenv("MONGO")}@cluster0.s8vxgku.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+
+db=client["logininfo"]
+data=db["login"]
 
 app = Flask(__name__)
-cors = CORS(app, origins=["http://localhost:3000"])
+cors = CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:5001" , "http://localhost:3000/login"])
 
 img_path = "https://image.tmdb.org/t/p/w500"
 movie_path_popular = f"https://api.themoviedb.org/3/movie/popular"
 movie_path_genre=f"https://api.themoviedb.org/3/discover/movie"
-load_dotenv()
 api_key = os.getenv("MOVIE_API")
 
 @app.route("/searchOneMovie/<string:id>",methods=["POST"])
@@ -138,6 +146,23 @@ def sliderhorror():
         img.append(str(i["id"]))
         result.append(img)
     return jsonify(result), 200
+
+@app.route("/signup",methods=["POST"])
+def signup():
+    response = request.get_json()
+    mail_check=response["email"]
+    result = data.insert_one(response)
+    return jsonify({"message": "new_signup"}), 200
+
+@app.route("/loginInfo", methods=["POST"])
+def loginInfo():
+    response = request.get_json()
+    mail_check=response["email"]
+    returned=data.find_one({"email":mail_check})
+    if returned!=None:
+        return jsonify({"message": "login_present"}), 200
+    else:
+        return jsonify({"message": "new_login"}), 200
 
 if '__main__' == __name__:
     app.run(host="0.0.0.0", port=5001,debug=True)

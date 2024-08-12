@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import Searchbar from './searchbar';
 
 const SeatBooking = () => {
   const location = useLocation();
@@ -28,8 +29,9 @@ const SeatBooking = () => {
   }, [movie]);
 
   return (
-    <div className='text-white p-32 pt-16'>
-      <div className='overflow-hidden z-50'>
+    <div className='text-white'>
+      <Searchbar/>
+      <div className='overflow-hidden z-50 px-28'>
             <div className='flex justify-center'>
                 <img
                     src={`https://image.tmdb.org/t/p/w500${MovieData[5]}`}

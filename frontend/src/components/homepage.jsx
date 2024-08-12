@@ -5,6 +5,8 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import LogoHome from './logohome';
+import Searchbar from './searchbar';
+import { useParams } from 'react-router-dom';
 
 const Homepage = () => {
   const [popularImages, setPopularImages] = useState([]);
@@ -13,6 +15,7 @@ const Homepage = () => {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
+  const { email } = useParams();
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -108,6 +111,7 @@ const Homepage = () => {
 
   return (
     <div className="select-none">
+      <Searchbar/>
       {popularImages.length > 0 && (
       <div className="flex justify-center relative md:pb-6 cursor-pointer">
         <div className="w-11/12">
@@ -135,7 +139,7 @@ const Homepage = () => {
       <div className="flex justify-center relative md:pb-6">
         <div className="w-11/12">
           <div className="text-white font-poppins font-semibold text-2xl p-3">
-            <p className='font-rubix'>Latest Release</p>
+            <p className='font-rubix'>{email}</p>
           </div>
           <Slider {...settings}>
             {popularImages.map((imagePair, index) => (

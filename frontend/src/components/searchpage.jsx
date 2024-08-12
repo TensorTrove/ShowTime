@@ -1,14 +1,16 @@
 import React from "react";
 import { useLocation, Link } from 'react-router-dom';
+import Searchbar from "./searchbar";
 
 const Searchpage = () => {
   const location = useLocation();
   const searchResult = location.state?.searchResult;
 
   return (
-    <div className="text-white font-poppins pt-20 p-10 px-12 select-none">
+    <div className="select-none">
+      <Searchbar/>
       {searchResult && searchResult.length > 0 ? (
-        <div>
+        <div className="px-14 text-white font-poppins">
           <h1 className="text-3xl font-semibold md:pb-10">Search Result:</h1>
           <div className="flex flex-wrap justify-start ">
             {searchResult.map((imagePair, index) => (
