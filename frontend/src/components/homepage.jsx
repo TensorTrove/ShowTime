@@ -139,7 +139,7 @@ const Homepage = () => {
       <div className="flex justify-center relative md:pb-6">
         <div className="w-11/12">
           <div className="text-white font-poppins font-semibold text-2xl p-3">
-            <p className='font-rubix'>{email}</p>
+            <p className='font-rubix'>Latest Release</p>
           </div>
           <Slider {...settings}>
             {popularImages.map((imagePair, index) => (

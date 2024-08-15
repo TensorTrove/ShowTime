@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Routes, Navigate, useActionData } from 'react-rou
 import PreLoader from "./components/Preloader";
 import Login from "./components/login";
 import Signup from "./components/signup";
+import Hallselect from "./components/hallselect";
+import Seatselect from "./components/seatselection";
 
 function PrivateRoute({ children }) {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -31,6 +33,8 @@ function App() {
           <Route path='/' element={<Navigate to="/login" replace />} />
           <Route path='/search' element={<Searchpage />} />
           <Route path='/booking' element={<Seatbooking />} />
+          <Route path='/seat' element={<Hallselect />} />
+          <Route path='/seatselection' element={<Seatselect />} />
         </Routes>
       </BrowserRouter>
     </div>

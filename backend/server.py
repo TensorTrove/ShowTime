@@ -13,6 +13,7 @@ client=MongoClient(f'mongodb+srv://personalankitdey:{os.getenv("MONGO")}@cluster
 
 db=client["logininfo"]
 data=db["login"]
+receipts=db["receipts"]
 
 app = Flask(__name__)
 cors = CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:5001" , "http://localhost:3000/login"])
@@ -22,6 +23,13 @@ movie_path_popular = f"https://api.themoviedb.org/3/movie/popular"
 movie_path_genre=f"https://api.themoviedb.org/3/discover/movie"
 api_key = os.getenv("MOVIE_API")
 
+
+@app.route("/billing",methods=["POST"])
+def billing():
+    response=request.get_json()
+    print(response)
+    receipts.insert_one(response)
+    return {"message":"bill entry created"},200
 @app.route("/searchOneMovie/<string:id>",methods=["POST"])
 def searchOneMovie(id):
     url=f"https://api.themoviedb.org/3/movie/{id}?api_key={api_key}"
