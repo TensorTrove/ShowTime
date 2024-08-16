@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import requests
 import datetime
 from pymongo import MongoClient
+from bson import ObjectId
 
 
 load_dotenv()
@@ -12,8 +13,11 @@ load_dotenv()
 client=MongoClient(f'mongodb+srv://personalankitdey:{os.getenv("MONGO")}@cluster0.s8vxgku.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 
 db=client["logininfo"]
+dbhalls=client["halls"]
+availableseats=dbhalls["seatcount"]
 data=db["login"]
 receipts=db["receipts"]
+seats=db["seats"]
 
 app = Flask(__name__)
 cors = CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:5001" , "http://localhost:3000/login"])
@@ -23,13 +27,37 @@ movie_path_popular = f"https://api.themoviedb.org/3/movie/popular"
 movie_path_genre=f"https://api.themoviedb.org/3/discover/movie"
 api_key = os.getenv("MOVIE_API")
 
+@app.route("/get_booked_seats", methods=["GET"])
+def get_booked_seats():
+    response = availableseats.find_one({"_id": ObjectId('66bf46afe053d1e3839094eb')})
+    response['_id']=str(response['_id'])
+    print(response)
+    return response,200
+
+@app.route("/book_seat",methods=["POST"])
+def book_seat():
+    response=request.get_json()
+    response['index']=response['index']+1
+    if response['selected']==True:
+        fetch_user=receipts.update_one({"_id":ObjectId(response['objectId'])},{"$push":{"seats":str(response['section'])+str(response['index'])}})
+        change_in_hall=availableseats.update_one({"_id": ObjectId('66bf46afe053d1e3839094eb')},{"$push":{"seats":str(response['section'])+str(response['index'])}})
+    elif response['selected']==False:
+        fetch_user=receipts.update_one({"_id":ObjectId(response['objectId'])},{"$pull":{"seats":str(response['section'])+str(response['index'])}})
+        change_in_hall=availableseats.update_one({"_id": ObjectId('66bf46afe053d1e3839094eb')},{"$pull":{"seats":str(response['section'])+str(response['index'])}})
+    print(response)
+    return response,200
 
 @app.route("/billing",methods=["POST"])
 def billing():
     response=request.get_json()
     print(response)
-    receipts.insert_one(response)
-    return {"message":"bill entry created"},200
+    response["seats"]=[]
+    result=receipts.insert_one(response)
+    objectid=result.inserted_id
+    objectid=str(objectid)
+    print(objectid)
+    return {"objectid":objectid},200
+
 @app.route("/searchOneMovie/<string:id>",methods=["POST"])
 def searchOneMovie(id):
     url=f"https://api.themoviedb.org/3/movie/{id}?api_key={api_key}"
@@ -173,4 +201,4 @@ def loginInfo():
         return jsonify({"message": "new_login"}), 200
 
 if '__main__' == __name__:
-    app.run(host="0.0.0.0", port=5001,debug=True)
+    app.run(host="0.0.0.0", port=5001)

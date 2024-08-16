@@ -1,29 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import screen from '../images/screen.svg';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
+const Seat = ({ section, index, selected, onClick }) => (
+  <div
+    className={`w-10 h-10 border ${index % 2 === 1 ? 'mr-10' : 'mx-2'} flex justify-center items-center ${
+      selected ? 'bg-blue-500' : ''
+    }`}
+    onClick={onClick}
+  >
+    <p className='text-sm'>{index + 1}</p>
+  </div>
+);
 
 const Seatselection = () => {
-  const [selectedSeats, setSelectedSeats] = useState({
-    vip: new Array(18).fill(false),
-    premium1: new Array(18).fill(false),
-    premium2: new Array(18).fill(false),
-    premium3: new Array(18).fill(false),
-    premium4: new Array(18).fill(false),
-    executive1: new Array(18).fill(false),
-    executive2: new Array(18).fill(false),
-    executive3: new Array(18).fill(false),
-    normal1: new Array(16).fill(false),
-    normal2: new Array(16).fill(false),
-  });
+  const location = useLocation();
+  const objectId = location.search.split('objectId=')[1];
 
+  const [selectedSeats, setSelectedSeats] = useState(
+    Object.fromEntries([
+      ['J', new Array(18).fill(false)],
+      ['I', new Array(18).fill(false)],
+      ['H', new Array(18).fill(false)],
+      ['G', new Array(18).fill(false)],
+      ['F', new Array(18).fill(false)],
+      ['E', new Array(18).fill(false)],
+      ['D', new Array(18).fill(false)],
+      ['C', new Array(18).fill(false)],
+      ['B', new Array(16).fill(false)],
+      ['A', new Array(16).fill(false)],
+    ])
+  );
+
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:5001/get_booked_seats`)
+      .then(response => {
+        const bookedSeats = response.data.seats;
+        const updatedSelectedSeats = { ...selectedSeats };
+        bookedSeats.forEach(seat => {
+          const section = seat[0];
+          const index = parseInt(seat.slice(1)) - 1;
+          updatedSelectedSeats[section][index] = true;
+        });
+        setSelectedSeats(updatedSelectedSeats);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   const handleSeatClick = (section, index) => {
-    setSelectedSeats((prevSelectedSeats) => {
-      prevSelectedSeats[section][index] = !prevSelectedSeats[section][index];
-      return { ...prevSelectedSeats };
-    });
+    setSelectedSeats((prevSeats) => ({
+      ...prevSeats,
+      [section]: prevSeats[section].map((selected, i) => i === index ? !selected : selected),
+    }));
+
+    // Book the seat
+    axios.post('http://127.0.0.1:5001/book_seat', {
+      objectId,
+      section,
+      index,
+      selected: !selectedSeats[section][index], // send the selected state to the server
+    })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
+
   return (
-    <div className='p-10 px-24 text-white'>
+    <div className='p-10 px-24 text-white select-none'>
         <h1 className='font-poppins font-medium'>Rs.800 - VIP</h1>
         <hr className='mb-5 mt-2'/>
         <div className='flex justify-evenly'>
@@ -33,13 +82,13 @@ const Seatselection = () => {
                 {new Array(18).fill(0).map((_, index) => (
                     <div key={index}>
                         <div
-                            className={`w-10 h-10 border ${index % 2 === 1 ? 'mr-10' : 'mx-2'} flex justify-center items-center ${
-                                selectedSeats.vip[index] ? 'bg-blue-500' : ''
+                            className={`w-10 h-10 border cursor-pointer ${index % 2 === 1 ? 'mr-10' : 'mx-2'} flex justify-center items-center ${
+                                selectedSeats.J[index] ? 'bg-blue-500' : ''
                             }`}
-                            onClick={() => handleSeatClick('vip', index)}
-                        >
+                            onClick={() => handleSeatClick('J', index)}
+                            >
                             <p className='text-sm'>{index + 1}</p>
-                        </div>
+                            </div>
                     </div>
                 ))}
             </div>
@@ -52,10 +101,10 @@ const Seatselection = () => {
                 {new Array(18).fill(0).map((_, index) => (
                     <div key={index}>
                         <div
-                            className={`w-10 h-10 border ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
-                                selectedSeats.premium1[index] ? 'bg-blue-500' : ''
+                            className={`w-10 h-10 border cursor-pointer ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
+                                selectedSeats.I[index] ? 'bg-blue-500' : ''
                             }`}
-                            onClick={() => handleSeatClick('premium1', index)}
+                            onClick={() => handleSeatClick('I', index)}
                         >
                             <p className='text-sm'>{index + 1}</p>
                         </div>
@@ -69,10 +118,10 @@ const Seatselection = () => {
                 {new Array(18).fill(0).map((_, index) => (
                     <div key={index}>
                         <div
-                            className={`w-10 h-10 border ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
-                                selectedSeats.premium2[index] ? 'bg-blue-500' : ''
+                            className={`w-10 h-10 border cursor-pointer ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
+                                selectedSeats.H[index] ? 'bg-blue-500' : ''
                             }`}
-                            onClick={() => handleSeatClick('premium2', index)}
+                            onClick={() => handleSeatClick('H', index)}
                         >
                             <p className='text-sm'>{index + 1}</p>
                         </div>
@@ -86,10 +135,10 @@ const Seatselection = () => {
                 {new Array(18).fill(0).map((_, index) => (
                     <div key={index}>
                         <div
-                            className={`w-10 h-10 border ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
-                                selectedSeats.premium3[index] ? 'bg-blue-500' : ''
+                            className={`w-10 h-10 border cursor-pointer ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
+                                selectedSeats.G[index] ? 'bg-blue-500' : ''
                             }`}
-                            onClick={() => handleSeatClick('premium3', index)}
+                            onClick={() => handleSeatClick('G', index)}
                             >
                                 <p className='text-sm'>{index + 1}</p>
                             </div>
@@ -103,10 +152,10 @@ const Seatselection = () => {
                         {new Array(18).fill(0).map((_, index) => (
                             <div key={index}>
                                 <div
-                                    className={`w-10 h-10 border ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
-                                        selectedSeats.premium4[index] ? 'bg-blue-500' : ''
+                                    className={`w-10 h-10 border cursor-pointer ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
+                                        selectedSeats.F[index] ? 'bg-blue-500' : ''
                                     }`}
-                                    onClick={() => handleSeatClick('premium4', index)}
+                                    onClick={() => handleSeatClick('F', index)}
                                 >
                                     <p className='text-sm'>{index + 1}</p>
                                 </div>
@@ -122,10 +171,10 @@ const Seatselection = () => {
                         {new Array(18).fill(0).map((_, index) => (
                             <div key={index}>
                                 <div
-                                    className={`w-10 h-10 border ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
-                                        selectedSeats.executive1[index] ? 'bg-blue-500' : ''
+                                    className={`w-10 h-10 border cursor-pointer ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
+                                        selectedSeats.E[index] ? 'bg-blue-500' : ''
                                     }`}
-                                    onClick={() => handleSeatClick('executive1', index)}
+                                    onClick={() => handleSeatClick('E', index)}
                                 >
                                     <p className='text-sm'>{index + 1}</p>
                                 </div>
@@ -139,10 +188,10 @@ const Seatselection = () => {
                         {new Array(18).fill(0).map((_, index) => (
                             <div key={index}>
                                 <div
-                                    className={`w-10 h-10 border ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
-                                        selectedSeats.executive2[index] ? 'bg-blue-500' : ''
+                                    className={`w-10 h-10 border cursor-pointer ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
+                                        selectedSeats.D[index] ? 'bg-blue-500' : ''
                                     }`}
-                                    onClick={() => handleSeatClick('executive2', index)}
+                                    onClick={() => handleSeatClick('D', index)}
                                 >
                                     <p className='text-sm'>{index + 1}</p>
                                 </div>
@@ -156,10 +205,10 @@ const Seatselection = () => {
                         {new Array(18).fill(0).map((_, index) => (
                             <div key={index}>
                                 <div
-                                    className={`w-10 h-10 border ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
-                                        selectedSeats.executive3[index] ? 'bg-blue-500' : ''
+                                    className={`w-10 h-10 border cursor-pointer ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
+                                        selectedSeats.C[index] ? 'bg-blue-500' : ''
                                     }`}
-                                    onClick={() => handleSeatClick('executive3', index)}
+                                    onClick={() => handleSeatClick('C', index)}
                                 >
                                     <p className='text-sm'>{index + 1}</p>
                                 </div>
@@ -176,10 +225,10 @@ const Seatselection = () => {
                         {new Array(16).fill(0).map((_, index) => (
                             <div key={index}>
                                 <div
-                                className={`w-10 h-10 border ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
-                                    selectedSeats.normal1[index] ? 'bg-blue-500' : ''
+                                className={`w-10 h-10 border cursor-pointer ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
+                                    selectedSeats.B[index] ? 'bg-blue-500' : ''
                                 }`}
-                                onClick={() => handleSeatClick('normal1', index)}
+                                onClick={() => handleSeatClick('B', index)}
                             >
                                 <p className='text-sm'>{index + 1}</p>
                             </div>
@@ -193,10 +242,10 @@ const Seatselection = () => {
                     {new Array(16).fill(0).map((_, index) => (
                         <div key={index}>
                             <div
-                                className={`w-10 h-10 border ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
-                                    selectedSeats.normal2[index] ? 'bg-blue-500' : ''
+                                className={`w-10 h-10 border cursor-pointer ${index === 2 ? 'mr-32 ml-3' : index === 14 ? 'mr-32 ml-3' : 'mx-3'} flex justify-center items-center ${
+                                    selectedSeats.A[index] ? 'bg-blue-500' : ''
                                 }`}
-                                onClick={() => handleSeatClick('normal2', index)}
+                                onClick={() => handleSeatClick('A', index)}
                             >
                                 <p className='text-sm'>{index + 1}</p>
                             </div>

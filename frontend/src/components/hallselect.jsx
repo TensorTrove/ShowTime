@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Searchbar from './searchbar';
-import axios from 'axios'; 
+import axios from 'axios';
 
 const Hallselect = () => {
   const location = useLocation();
@@ -10,7 +10,7 @@ const Hallselect = () => {
   const currentDate = new Date();
   const dates = Array.from({ length: 5 }, (_, i) => new Date(currentDate.getTime() + i * 24 * 60 * 60 * 1000));
 
-  const [selectedDateIndex, setSelectedDateIndex] = useState(0); 
+  const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const [selectedTime, setSelectedTime] = useState(null);
 
   const hallData = [
@@ -36,17 +36,18 @@ const Hallselect = () => {
     setSelectedTime(time);
     if (selectedDateIndex !== null) {
       const selectedDate = dates[selectedDateIndex];
-      axios.post('http://127.0.0.1:5001/billing', {
-        movieName,
-        time,
-        date: selectedDate.toLocaleDateString(),
-      })
-        .then((response) => {
-          window.location.href = '/seatselection';
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+axios.post('http://127.0.0.1:5001/billing', {
+  movieName,
+  time,
+  date: selectedDate.toLocaleDateString(),
+})
+  .then((response) => {
+    const objectId = response.data.objectid; // note the lowercase 'o' in objectid
+    window.location.href = `/seatselection?objectId=${objectId}`;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
     }
   };
 
@@ -60,7 +61,7 @@ const Hallselect = () => {
             <div
               key={index}
               className={`bg-slate-800 p-4 m-2 w-28 cursor-pointer ${
-                selectedDateIndex === index ? 'bg-orange-500' : ''
+                selectedDateIndex === index ? 'bg-red-700' : ''
               }`}
               onClick={() => handleDateSelect(index)}
             >
