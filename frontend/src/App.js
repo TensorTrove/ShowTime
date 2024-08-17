@@ -9,6 +9,7 @@ import Login from "./components/login";
 import Signup from "./components/signup";
 import Hallselect from "./components/hallselect";
 import Seatselect from "./components/seatselection";
+import Finalbill from "./components/finalbill";
 
 function PrivateRoute({ children }) {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -35,6 +36,7 @@ function App() {
           <Route path='/booking' element={<Seatbooking />} />
           <Route path='/seat' element={<Hallselect />} />
           <Route path='/seatselection' element={<Seatselect />} />
+          <Route path='/finalbill' element={<Finalbill />} />
         </Routes>
       </BrowserRouter>
     </div>
