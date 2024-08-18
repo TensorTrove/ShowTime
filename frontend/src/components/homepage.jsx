@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
@@ -7,8 +7,31 @@ import "slick-carousel/slick/slick-theme.css";
 import LogoHome from './logohome';
 import Searchbar from './searchbar';
 import { useParams } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Homepage = () => {
+  const toastRef = useRef(false);
+
+  useEffect(() => {
+    if (!toastRef.current) {
+      toast.success('Login successful', {
+        position: "top-center",
+        style: {
+          border: '1px solid #713200',
+          padding: '24px',
+          color: '#713200',
+          tabSize:'20rem',
+          borderRadius:'50px',
+        },
+        iconTheme: {
+          primary: '#713200',
+          secondary: '#FFFAEE',
+        },
+        duration:5000,
+      });
+      toastRef.current = true;
+    }
+  }, []);
   const [popularImages, setPopularImages] = useState([]);
   const [horrorImages, sethorrorImages] = useState([]);
   const [trendingImages, settrendingImages] = useState([]);
@@ -112,6 +135,7 @@ const Homepage = () => {
   return (
     <div className="select-none">
       <Searchbar/>
+      <div><Toaster/></div>
       {popularImages.length > 0 && (
       <div className="flex justify-center relative md:pb-6 cursor-pointer">
         <div className="w-11/12">
