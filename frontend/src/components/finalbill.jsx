@@ -12,7 +12,7 @@ const Finalbill = () => {
     const toastRef = useRef(false);
 
   useEffect(() => {
-    axios.post(`http://127.0.0.1:5001/get_finalbill`, {
+    axios.post(`http://65.2.130.52/get_finalbill`, {
       objectId: objectId // Pass the objectId to the request body
     })
       .then(response => {

@@ -13,7 +13,7 @@ const Signup = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('http://127.0.0.1:5001/signup', {
+    fetch('http://65.2.130.52:5001/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,9 +26,9 @@ const Signup = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === 'new_signup') {
-          window.location.href = 'http://localhost:3000/login';
+          window.location.href = 'https://showtime-five.vercel.app/login';
         } else {
-          window.location.href = 'http://localhost:3000/login';
+          window.location.href = 'https://showtime-five.vercel.app/login';
         }
       })
       .catch((error) => console.error(error));
@@ -89,7 +89,7 @@ const Signup = () => {
             Sign Up
           </button>
           <br className='mb-20'/>
-            <a href="http://localhost:3000/login" className='text-red-500 underline-offset-4 underline'>Log In</a>
+            <a href="https://showtime-five.vercel.app/login" className='text-red-500 underline-offset-4 underline'>Log In</a>
         </form>
         </div>
       </div>

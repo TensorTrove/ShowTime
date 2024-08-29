@@ -18,7 +18,7 @@ const Seatselection = () => {
   const location = useLocation();
   const objectId = location.search.split('objectId=')[1];
 
-  const [bookedSeats, setBookedSeats] = useState({}); // booked seats from API
+  const [bookedSeats, setBookedSeats] = useState({}); 
   const [selectedSeats, setSelectedSeats] = useState(
     Object.fromEntries([
       ['J', new Array(18).fill(false)],
@@ -35,7 +35,7 @@ const Seatselection = () => {
   );
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:5001/get_booked_seats`)
+    axios.get(`http://65.2.130.52:5001/get_booked_seats`)
       .then((response) => {
         const bookedSeatsFromAPI = response.data.seats;
         const bookedSeatsObj = {};
@@ -66,7 +66,7 @@ const Seatselection = () => {
     }));
   
     // Book the seat
-    axios.post('http://127.0.0.1:5001/book_seat', {
+    axios.post('http://65.2.130.52:5001/book_seat', {
         objectId,
         section,
         index: Number(index) + 1, 
@@ -81,7 +81,7 @@ const Seatselection = () => {
   }, [selectedSeats, setSelectedSeats, objectId]);
   
   const handleBookSeats = useCallback(() => {
-    axios.post('http://127.0.0.1:5001/book_seats', {
+    axios.post('http://65.2.130.52:5001/book_seats', {
       objectId,
       seats: Object.entries(selectedSeats).reduce((acc, [section, seats]) => {
         seats.forEach((selected, index) => {

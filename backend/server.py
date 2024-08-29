@@ -20,7 +20,7 @@ receipts=db["receipts"]
 seats=db["seats"]
 
 app = Flask(__name__)
-cors = CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:5001" , "http://localhost:3000/login","http://127.0.0.1:5001/book_seats"])
+cors = CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:5001" , "http://localhost:3000/login","http://127.0.0.1:5001/book_seats","https://showtime-five.vercel.app/"])
 
 img_path = "https://image.tmdb.org/t/p/w500"
 movie_path_popular = f"https://api.themoviedb.org/3/movie/popular"

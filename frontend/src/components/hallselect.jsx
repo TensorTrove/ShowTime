@@ -36,7 +36,7 @@ const Hallselect = () => {
     setSelectedTime(time);
     if (selectedDateIndex !== null) {
       const selectedDate = dates[selectedDateIndex];
-axios.post('http://127.0.0.1:5001/billing', {
+axios.post('http://65.2.130.52/billing', {
   movieName,
   time,
   date: selectedDate.toLocaleDateString(),
