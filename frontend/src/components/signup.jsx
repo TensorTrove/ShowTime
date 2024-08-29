@@ -13,7 +13,7 @@ const Signup = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('http://65.2.130.52:5001/signup', {
+    fetch('https://65.2.130.52:5001/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
