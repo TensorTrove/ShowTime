@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('http://65.2.130.52:5050/loginInfo', {
+    fetch('http://127.0.0.1:5001/loginInfo', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ const Login = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === 'login_present') {
-          window.location.href = 'https://showtime-five.vercel.app/home';
+          window.location.href = 'http://localhost:3000/home';
         } else {
           setError('Email not found'); // Set the error message
         }
@@ -97,7 +97,7 @@ const Login = () => {
               Sign In
             </button>
             <br className='mb-20'/>
-            <a href="https://showtime-five.vercel.app/signup" className='text-red-500 underline-offset-4 underline'>Sign Up</a>
+            <a href="http://localhost:3000/signup" className='text-red-500 underline-offset-4 underline'>Sign Up</a>
           </form>
         </div>
       </div>

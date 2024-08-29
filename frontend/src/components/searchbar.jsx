@@ -9,7 +9,7 @@ const Searchbar = () => {
 
   const handleSearchClick = () => {
     const movieJson = { movie: movieName };
-    fetch('https://showtime-five.vercel.app/searchmovie', {
+    fetch('http://127.0.0.1:5001/searchmovie', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
