@@ -35,7 +35,7 @@ const Seatselection = () => {
   );
 
   useEffect(() => {
-    axios.get(`http://65.2.130.52:5001/get_booked_seats`)
+    axios.get(`https://65.2.130.52:5001/get_booked_seats`)
       .then((response) => {
         const bookedSeatsFromAPI = response.data.seats;
         const bookedSeatsObj = {};

@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch('http://65.2.130.52/loginInfo', {
+    fetch('http://65.2.130.52:5001/loginInfo', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

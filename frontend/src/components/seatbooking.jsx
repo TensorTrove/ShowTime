@@ -12,7 +12,7 @@ const SeatBooking = () => {
     if (movie) {
       const sendData = async () => {
         try {
-          const response = await fetch(`http://65.2.130.52:5001/searchOneMovie/${movie[5]}`, {
+          const response = await fetch(`https://65.2.130.52:5001/searchOneMovie/${movie[5]}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

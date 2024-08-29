@@ -43,7 +43,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://65.2.130.52/sliderpopular');
+        const response = await axios.get('https://65.2.130.52:5001/sliderpopular');
         setPopularImages(response.data);
       } catch (error) {
         setError(error.message);
@@ -54,7 +54,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://65.2.130.52/slidertrending');
+        const response = await axios.get('https://65.2.130.52:5001/slidertrending');
         settrendingImages(response.data);
       } catch (error) {
         setError(error.message);
@@ -65,7 +65,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://65.2.130.52/sliderhorror');
+        const response = await axios.get('https://65.2.130.52:5001/sliderhorror');
         sethorrorImages(response.data);
       } catch (error) {
         setError(error.message);
