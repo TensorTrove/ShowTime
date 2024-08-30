@@ -21,6 +21,8 @@ ShowTime is a web application built using the MERN (MongoDB, Express.js, React, 
   * MongoDB: A NoSQL database for storing application data.
 * **Server:**
   * Flask: A Python web framework for handling API requests.
+* **Containerization:**
+  * Docker: An open platform for developing, shipping, and running applications.
 
 ### Installation and Setup
 
