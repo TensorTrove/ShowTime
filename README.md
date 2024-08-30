@@ -26,7 +26,7 @@ ShowTime is a web application built using the MERN (MongoDB, Express.js, React, 
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/showtime.git
+   git clone https://github.com/TensorTrove/ShowTime.git
    ```
 2. **Install dependencies:**
    ```bash
