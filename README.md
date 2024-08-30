@@ -97,6 +97,8 @@ ShowTime/
 ### Booking Confirmation
 
 ![alt text](<sample/WhatsApp Image 2024-08-31 at 1.17.12 AM (1).jpeg>)
+### Billing
+![alt text](<sample/WhatsApp Image 2024-08-31 at 1.17.13 AM (1).jpeg>)
 ## Getting Started
 
 ### Prerequisites
