@@ -89,14 +89,16 @@ ShowTime/
 
 ![alt text](<sample/WhatsApp Image 2024-08-31 at 1.17.14 AM.jpeg>)
 
+### Booking Confirmation
+
+![alt text](<sample/WhatsApp Image 2024-08-31 at 1.17.12 AM (1).jpeg>)
+
 ### Theatre Selection
 ![alt text](<sample/WhatsApp Image 2024-08-31 at 1.17.13 AM2.jpeg>)
 ### Seat Booking
 
 ![alt text](<sample/WhatsApp Image 2024-08-31 at 1.17.12 AM.jpeg>)
-### Booking Confirmation
 
-![alt text](<sample/WhatsApp Image 2024-08-31 at 1.17.12 AM (1).jpeg>)
 ### Billing
 ![alt text](<sample/WhatsApp Image 2024-08-31 at 1.17.13 AM (1).jpeg>)
 ## Getting Started
