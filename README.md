@@ -12,7 +12,6 @@ ShowTime is a modern web application for booking movie tickets. The platform off
 - **Booking System**: Select showtimes and book your preferred seats.
 - **User Authentication**: Sign up and sign in securely.
 - **Booking Confirmation**: Receive a detailed bill and booking confirmation.
-- **Responsive Design**: Access the application across various devices.
 
 ## Directory Structure
 
